@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="{% static 'photoeval/index.css' %}">
+    <link rel="stylesheet" href="https://fonts.google.com/specimen/Ubuntu?selection.family=Lato|Ubuntu">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="background"></div>
+    <div id="midground"></div>
+    <div id="foreground"></div>
+    <div id="page-wrap">
+      <h1 id="title"> Welcome to Photo Estimator </h1>
+    </div>
+    <div id="moto">
+      Here where you can test your images before even posting them<br>
+      <button id="btn"><a href="{% url "test" %}">Test</a></button>
+      <button id="btn">Sign Up</button>
+    </div>
+    <div id="buttons">
+      <button id="btn">Test</button>
+      <button id="btn">Sign Up</button>
+    </div>
+
+  </body>
+</html>

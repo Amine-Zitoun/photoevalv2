@@ -1,0 +1,109 @@
+body {
+	font: 10px/2 "Lucida Grande", Helvetica, Sans-Serif;
+	color: #eee;
+}
+
+@-webkit-keyframes STAR-MOVE {
+  from {
+		left: 0;
+		top: 0;
+	}
+	to {
+		left: -10000px;
+		top: -2000px;
+	}
+}
+
+@import url(https://fonts.google.com/specimen/Ubuntu?selection.family=Lato|Ubuntu:ital,wght@0,400;0,500;1,400);
+
+
+#background {
+	background: black url(background.png) repeat 5% 5%;
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	z-index: 100;
+
+	-webkit-animation-name: STAR-MOVE;
+	-webkit-animation-duration: 200s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+}
+* { margin: 0; padding: 0; }
+
+html { overflow-y: scroll; }
+#midground {
+	background: url(midground.png) repeat 20% 20%;
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	z-index: 200;
+
+	-webkit-animation-name: STAR-MOVE;
+	-webkit-animation-duration: 150s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+}
+
+#foreground {
+	background: url(foreground.png) repeat 35% 35%;
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	z-index: 300;
+
+	-webkit-animation-name: STAR-MOVE;
+	-webkit-animation-duration: 100s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+}
+#page-wrap {
+	width: 80%;
+	margin: 0 auto;
+	position: relative;
+  text-align: center;
+  margin-top: 	20%;
+  color: rgba(122,116,237,1);
+  font-family: "Ubuntu",sans-serif;
+  font-size: 20px;
+	z-index: 300;
+	background: rgba(0,0,0,0.7);
+	overflow: hidden;
+  letter-spacing: 5px;
+  /*
+	padding-right: 20%;
+  padding-left: 32%;
+  padding-top: 20%;*/
+}
+a {
+  color: white; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+#moto{
+  width: 80%;
+	margin: 0 auto;
+	position: relative;
+  text-align: center;
+  font-family: "Ubuntu",sans-serif;
+  font-size: 20px;
+	z-index: 300;
+	background: rgba(0,0,0,0.7);
+	overflow: hidden;
+}
+
+#btn{
+  border-radius: 2px;
+  background-color: inherit;
+  /*border-color: rgba(122,116,237,1);*/
+  width: 10%;
+  margin: 10px;
+  height: 40px;
+  color: white;
+  font-weight: bold;
+  border-color: rgba(122,116,237,1);
+}
+
+/*
+h1 {
+	font: "Ubuntu",sans-serif;
+	margin: 0 0 10px 0;
+	color: #eee;
+}
+*/
