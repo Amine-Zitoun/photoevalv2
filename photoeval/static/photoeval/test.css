@@ -1,3 +1,33 @@
 body{
   background-image: url(background.png);
 }
+
+#btn{
+  margin: 3%;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+  width: 10%;
+  height: 40px;
+  border-color: white;
+  transition: 0.5s;
+}
+
+#btn:hover{
+  margin: 3%;
+  font-weight: bold;
+  color: black;
+  background-color: white;
+  width: 10%;
+  height: 40px;
+  border-color: black;
+}
+a {
+  color: white; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+  transition: 0.5s;
+}
+a:hover{
+	color: black;
+	text-decoration: inherit;
+}

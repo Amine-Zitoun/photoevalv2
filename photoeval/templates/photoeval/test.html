@@ -5,10 +5,11 @@
     <meta charset="utf-8">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'photoeval/test.css' %}">
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="{% static 'photoeval/test.css' %}">
     <title></title>
   </head>
   <body>
@@ -40,7 +41,7 @@
         <p style="color: white;;font-family: Lato,sans-serif;margin-left: 3%;margin-top: 3%;">To use PhotEval you need to firstly proceed to the next page through the button below that will send  you to a page where you submit your instagram acount name which we will
         use to send you a follow request.Then, to proceed you will need to accept that request so we can get analyse your past images and your likes to predict the outcome.In addiction to that you will need to choose the number of images that we will scrape (keep in mind that the bigger the count of the images the longer it will take).by then, you will be handed a small game to play with while we do the nerd stuff and analyse
       your images which if you are doing for the first time may take a while depending on your image count that's why it's recommended to sign up and create an account for us to save your personilized data therefore it will take less time</p>
-
+        <a href="{% url 'start' %}"><button id="btn">Proceed</button></a>
       <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 
       <!--Boostrap jQuery-->

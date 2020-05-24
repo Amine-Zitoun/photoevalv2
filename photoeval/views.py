@@ -14,3 +14,8 @@ def login(request):
 
 def signup(request):
     return render(request,'photoeval/signup.html')
+
+
+
+def start(request):
+    return render(request,'photoeval/start.html')
