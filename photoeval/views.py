@@ -18,4 +18,8 @@ def signup(request):
 
 
 def start(request):
+    data = request.POST.copy()
+    username = data.get('actname')
+    img_count = data.get('imgcount')
+    
     return render(request,'photoeval/start.html')

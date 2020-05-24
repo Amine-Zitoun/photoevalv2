@@ -38,7 +38,8 @@
     <p class="lead"  style="color: white;font-family: Lato,sans-serif;margin-left: 3%;">Go Ahead and fill your instagram account name then accept our instagram request and then choose how many pictures for us to analyse but know that the bigger the count the better the accuracy but the longer it will take</p>
     <br><br><br>
 
-    <form class="" action="{% url 'start' %}" method="post">
+    <form name="myform" class="" action="{% url 'start' %}" method="post" onsubmit="return validateform()">
+      {% csrf_token %}
         <div id="lbl">Account Name: </div><input name="actname" id="inp" type="text">
         <br><br>
         <div class="slidecontainer">
@@ -51,6 +52,21 @@
 
       <!--Boostrap jQuery-->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <script type="text/javascript">
+        function validateform(){
+          actname = document.myform.actname.value
+          imgcount = document.myform.imgcount.value
+          if (imgcount >= 200 || imgcount < 0){
+            alert("Img count need to be between 200 and 0")
+            return false
+          }
+          else{
+            alert('done')
+            return true
+          }
+        }
+
+      </script>
   </body>
 
 </html>
