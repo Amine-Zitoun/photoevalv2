@@ -28,7 +28,7 @@ body{
   display: inline;
   text-align: right;
   width: 20%;
-  font-size: 30px;
+  font-size: 20px;
 }
 
 #inp{
@@ -46,4 +46,15 @@ body{
 }
 #inp:focus {
   border-color: white;
+}
+
+#msgs{
+  border: solid 3px white;
+  height: 10%;
+  padding: 20px;
+  border-radius: 10px;
+  margin-left: 30%;
+  text-align: center;
+  width: 40%;
+  color: white;
 }
