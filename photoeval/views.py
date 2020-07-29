@@ -11,7 +11,7 @@ import base64
 import io
 #from funcs import *
 import pickle
-
+import numpy as np
 import urllib.request,json
 import random
 
@@ -21,7 +21,7 @@ instaApi.login()
 
 
 
-
+IMG_SIZE=80
 
 
 def read_json(path):
@@ -31,11 +31,13 @@ def read_json(path):
 	return data
 def like_process(likes):
     global boi
-    boi = 0
+    s = 0
     new_likes = []
     for like in likes:
-        boi += like
-        model = boi/len(likes)
+        s += like
+    model = s/len(likes)
+
+    for like in likes:
         if like >= model:
             like = 1
             new_likes.append(like)
@@ -64,13 +66,15 @@ def training(username,DATADIR):
     json_path = f'{username}'
     json_file = os.path.join(DATADIR,json_path)
     json = read_json(json_file) # 5
-
-    for i in json:
+    likes =[]
+    for i in json['GraphImages']:
         likes.append(i['edge_media_preview_like']['count'])
 
     new_likes = like_process(likes)
 
+
     new_likes.reverse()
+    training_data = []
     print(new_likes)
     k = 0
     while (k <= len(os.listdir(DATADIR))-1):
@@ -88,7 +92,7 @@ def training(username,DATADIR):
         except Exception as e:
             pass
         k += 1
-
+    return training_data
 
 def stock(training_data):
 	x= []
@@ -106,13 +110,16 @@ def stock(training_data):
 	pickle_boi = open('y.pickle','wb')
 	pickle.dump(y,pickle_boi)
 	pickle_boi.close()
+	print('KAMALNA STOCKENA SI ZEBY')
 
 
 
 def get_data(username,me,pwd,DATADIR):
-	os.system(f'instagram-scraper {username}  -m 24  -t image --media-metadata -u {me} -p {pwd}')
-	training(username,DATADIR)
-	stock(training_data)
+    os.system(f'instagram-scraper {username}  -m 24  -t image --media-metadata -u {me} -p {pwd}')
+    training_data= training(username,DATADIR)
+    print(training_data)
+    stock(training_data)
+
 
 
 
@@ -156,6 +163,7 @@ def data(request):
 	DATADIR= username
 
 	get_data(username,'photoeval', 'tryhardboi',DATADIR)
-	return redirect('train')
-def train(request):
+	print("3MALNA KOL CHY B S7I7 YA ZEBY")
 	return render(request,'photoeval/train.html')
+def train(request):
+	pass
