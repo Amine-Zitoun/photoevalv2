@@ -25,4 +25,5 @@ urlpatterns = [
     path('follow/',views.follow,name='follow'),
     path('data/',views.data,name='data'),
     path('train/',views.train,name='train'),
+    path('begintraining/',views.begintraining,name='begintraining'),
 ]

@@ -4,7 +4,11 @@ from django.contrib import messages
 from flask import Flask,request,render_template,url_for,flash,redirect,jsonify
 from InstagramAPI import InstagramAPI
 import os
-#import tensorflow as tf
+import tensorflow as tf
+from PIL import Image
+from tensorflow.keras.callbacks import TensorBoard
+import cv2
+import tensorflow as tf
 from PIL import Image
 import cv2
 import base64
@@ -14,7 +18,7 @@ import pickle
 import numpy as np
 import urllib.request,json
 import random
-
+import operator
 
 instaApi = InstagramAPI('photoeval', 'tryhardboi')
 instaApi.login()
@@ -144,6 +148,100 @@ def signup(request):
 
 def start(request):
     return render(request,'photoeval/start.html')
+def Model():
+
+    X = pickle.load(open('x.pickle', 'rb'))
+    y = pickle.load(open('y.pickle', 'rb'))
+
+
+    X =X/255.0
+
+    conv_layers = [1,2,3]
+    dense_layers = [1,2,3]
+    layer_sizes = [64,32,128]
+    dict_acc = {}
+    print("=====================")
+    print("started optimizing...")
+    print("======================")
+    for dense_layer in dense_layers:
+        for layer_size in layer_sizes:
+            for conv_layer in conv_layers:
+                model = tf.keras.models.Sequential()
+                NAME="{}-conv-{}-nodes-{}-dense".format(conv_layer,layer_size,dense_layer)
+                tensorboard = TensorBoard(log_dir="logs/{}".format(NAME))
+                model.add(tf.keras.layers.Conv2D(layer_size, (3,3), input_shape= X.shape[1:]))
+                model.add(tf.keras.layers.Activation('relu'))
+                model.add(tf.keras.layers.MaxPooling2D(pool_size=(2,2)))
+                for l in range(conv_layer-1):
+                    model.add(tf.keras.layers.Conv2D(layer_size, (3,3), input_shape= X.shape[1:]))
+                    model.add(tf.keras.layers.Activation('relu'))
+                    model.add(tf.keras.layers.MaxPooling2D(pool_size=(2,2)))
+
+                model.add(tf.keras.layers.Flatten())
+                for _ in range(dense_layer):
+                    model.add(tf.keras.layers.Dense(layer_size))
+                    model.add(tf.keras.layers.Activation('relu'))
+                    model.add(tf.keras.layers.Dropout(0.2))
+                model.add(tf.keras.layers.Dense(1))
+                model.add(tf.keras.layers.Activation('sigmoid'))
+                model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
+                model.fit(X,y,batch_size=32,epochs=10,validation_split=0.3,callbacks=[tensorboard])
+                dict_acc[NAME] = model.evaluate(X,y)
+    print("=====================")
+    print("done optimizing...")
+    print("======================")
+    best_model = max(dict_acc.items(), key=operator.itemgetter(1))[0]
+    print("=====================")
+    print("best is {}...".format(best_model))
+    print("======================")
+    conv_layers = [int(best_model.split('-')[0])]
+    layer_sizes = [int(best_model.split('-')[2])]
+    dense_layers = [int(best_model.split('-')[0])]
+    print("=====================")
+    print("started training...")
+    print("======================")
+    for dense_layer in dense_layers:
+        for layer_size in layer_sizes:
+            for conv_layer in conv_layers:
+                model = tf.keras.models.Sequential()
+                NAME="{}-conv-{}-nodes-{}-dense".format(conv_layer,layer_size,dense_layer)
+                tensorboard = TensorBoard(log_dir="logs/{}".format(NAME))
+                model.add(tf.keras.layers.Conv2D(layer_size, (3,3), input_shape= X.shape[1:]))
+                model.add(tf.keras.layers.Activation('relu'))
+                model.add(tf.keras.layers.MaxPooling2D(pool_size=(2,2)))
+                for l in range(conv_layer-1):
+                    model.add(tf.keras.layers.Conv2D(layer_size, (3,3), input_shape= X.shape[1:]))
+                    model.add(tf.keras.layers.Activation('relu'))
+                    model.add(tf.keras.layers.MaxPooling2D(pool_size=(2,2)))
+
+                model.add(tf.keras.layers.Flatten())
+                for _ in range(dense_layer):
+                    model.add(tf.keras.layers.Dense(layer_size))
+                    model.add(tf.keras.layers.Activation('relu'))
+                    model.add(tf.keras.layers.Dropout(0.2))
+                model.add(tf.keras.layers.Dense(1))
+                model.add(tf.keras.layers.Activation('sigmoid'))
+                model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
+                model.fit(X,y,batch_size=32,epochs=10,validation_split=0.3,callbacks=[tensorboard])
+    print("=====================")
+    print("done training...")
+    print("======================")
+    model.save('PP.model')
+
+
+
+
+
+
+def process(image):
+    image = image.resize((80,80))
+    image = tf.keras.preprocessing.image.img_to_array(image)
+    image = np.expand_dims(image, axis=0)
+    return image.reshape(-1,80,80,1)
+
+def begintraining(request):
+    Model()
+    return render(request,'photoeval/testmodel.html')
 
 def follow(request):
     data = request.POST.copy()
