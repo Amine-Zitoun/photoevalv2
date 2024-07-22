@@ -20,7 +20,7 @@ import urllib.request,json
 import random
 import operator
 
-instaApi = InstagramAPI('photoeval', 'tryhardboi')
+instaApi = InstagramAPI(__Username__, __Password__)
 instaApi.login()
 
 
