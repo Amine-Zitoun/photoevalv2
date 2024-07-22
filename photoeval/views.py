@@ -261,7 +261,6 @@ def data(request):
 	DATADIR= username
 
 	get_data(username,'photoeval', 'tryhardboi',DATADIR)
-	print("3MALNA KOL CHY B S7I7 YA ZEBY")
 	return render(request,'photoeval/train.html')
 def train(request):
 	pass
